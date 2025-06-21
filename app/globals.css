@@ -52,7 +52,7 @@
     color: white;
     font-weight: 600;
     padding: 12px 32px;
-    border-radius: 8px;
+    border-radius: 9999px; /* Make buttons fully rounded */
     transition: all 0.2s ease;
     font-family: var(--font-montserrat);
   }
@@ -70,7 +70,7 @@
   }
 
   .container-content {
-    max-width: 800px;
+    max-width: 900px; /* Slightly wider for better content display */
     margin: 0 auto;
     padding: 0 24px;
   }

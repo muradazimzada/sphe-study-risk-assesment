@@ -23,30 +23,32 @@ export default function NavigationButtons({
   backText = "Back",
 }: NavigationButtonsProps) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mt-12 pt-8">
-      {showBack ? (
-        <Button
-          variant="outline"
-          onClick={onBack}
-          className="w-full sm:w-auto bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-montserrat font-medium px-6 py-3"
-        >
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          {backText}
-        </Button>
-      ) : (
-        <div />
-      )}
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+      <div className="container-main flex justify-between items-center">
+        {showBack ? (
+          <Button
+            variant="outline"
+            onClick={onBack}
+            className="bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-montserrat font-medium px-6 py-3 rounded-full"
+          >
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            {backText}
+          </Button>
+        ) : (
+          <div />
+        )}
 
-      {showNext && (
-        <Button
-          onClick={onNext}
-          disabled={nextDisabled}
-          className="w-full sm:w-auto btn-primary px-8 py-3 text-base font-semibold"
-        >
-          {nextText}
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
-      )}
+        {showNext && (
+          <Button
+            onClick={onNext}
+            disabled={nextDisabled}
+            className="btn-primary px-8 py-3 text-base font-semibold rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {nextText}
+            <ChevronRight className="w-4 h-4 ml-2" />
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

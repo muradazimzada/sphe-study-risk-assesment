@@ -50,19 +50,21 @@ export default function QuestionCard({
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto bg-white shadow-lg border-0">
-      <CardContent className="p-8 md:p-12">
-        <div className="space-y-8">
+    <Card className="w-full max-w-3xl mx-auto bg-white shadow-lg border-0 rounded-2xl">
+      <CardContent className="p-6 md:p-8">
+        <div className="space-y-6">
           {question.text && (
-            <h3 className="font-merriweather text-heading-md text-primary leading-relaxed">{question.text}</h3>
+            <h3 className="font-merriweather text-xl md:text-2xl text-primary leading-relaxed text-center">
+              {question.text}
+            </h3>
           )}
 
           {question.type === "yes-no" && (
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto pt-4">
               <Button
                 variant={answer === true ? "default" : "outline"}
                 onClick={() => handleYesNoAnswer(true)}
-                className={`flex-1 py-4 text-lg font-semibold ${
+                className={`flex-1 py-4 text-lg font-semibold rounded-full ${
                   answer === true
                     ? "btn-primary"
                     : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
@@ -73,7 +75,7 @@ export default function QuestionCard({
               <Button
                 variant={answer === false ? "default" : "outline"}
                 onClick={() => handleYesNoAnswer(false)}
-                className={`flex-1 py-4 text-lg font-semibold ${
+                className={`flex-1 py-4 text-lg font-semibold rounded-full ${
                   answer === false
                     ? "btn-primary"
                     : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
@@ -85,21 +87,21 @@ export default function QuestionCard({
           )}
 
           {question.type === "checkbox" && question.options && (
-            <div className="space-y-4 max-w-2xl">
+            <div className="space-y-3 max-w-2xl mx-auto pt-4">
               {question.options.map((option) => (
                 <div
                   key={option}
-                  className="flex items-start space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors border border-gray-100"
                 >
                   <Checkbox
                     id={`${question.id}-${option}`}
                     checked={Array.isArray(answer) && answer.includes(option)}
                     onCheckedChange={(checked) => handleCheckboxAnswer(option, checked as boolean)}
-                    className="mt-1 data-[state=checked]:bg-button data-[state=checked]:border-button"
+                    className="mt-1 data-[state=checked]:bg-button data-[state=checked]:border-button rounded-md"
                   />
                   <Label
                     htmlFor={`${question.id}-${option}`}
-                    className="text-body-md font-montserrat leading-relaxed cursor-pointer flex-1"
+                    className="text-base font-montserrat leading-relaxed cursor-pointer flex-1"
                   >
                     {option}
                   </Label>
@@ -109,11 +111,15 @@ export default function QuestionCard({
           )}
 
           {question.type === "radio" && question.options && (
-            <RadioGroup value={answer as string} onValueChange={handleRadioAnswer} className="space-y-4 max-w-2xl">
+            <RadioGroup
+              value={answer as string}
+              onValueChange={handleRadioAnswer}
+              className="space-y-3 max-w-2xl mx-auto pt-4"
+            >
               {question.options.map((option) => (
                 <div
                   key={option}
-                  className="flex items-start space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors border border-gray-100"
                 >
                   <RadioGroupItem
                     value={option}
@@ -122,7 +128,7 @@ export default function QuestionCard({
                   />
                   <Label
                     htmlFor={`${question.id}-${option}`}
-                    className="text-body-md font-montserrat leading-relaxed cursor-pointer flex-1"
+                    className="text-base font-montserrat leading-relaxed cursor-pointer flex-1"
                   >
                     {option}
                   </Label>
@@ -132,22 +138,24 @@ export default function QuestionCard({
           )}
 
           {question.type === "text" && (
-            <Textarea
-              value={(answer as string) || ""}
-              onChange={(e) => handleTextAnswer(e.target.value)}
-              placeholder="Please describe..."
-              className="min-h-[120px] text-body-md font-bryndan border-2 border-gray-300 focus:border-button focus:ring-button"
-            />
+            <div className="pt-4">
+              <Textarea
+                value={(answer as string) || ""}
+                onChange={(e) => handleTextAnswer(e.target.value)}
+                placeholder="Please describe..."
+                className="min-h-[120px] text-base font-bryndan border-2 border-gray-300 focus:border-button focus:ring-button rounded-xl"
+              />
+            </div>
           )}
 
           {showSubQuestion && question.subQuestion && onSubAnswer && (
-            <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="mt-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
               <h4 className="font-merriweather text-lg font-semibold text-primary mb-4">{question.subQuestion.text}</h4>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md">
+              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <Button
                   variant={subAnswer === true ? "default" : "outline"}
                   onClick={() => onSubAnswer(question.subQuestion!.id, true)}
-                  className={`flex-1 py-3 font-semibold ${
+                  className={`flex-1 py-3 font-semibold rounded-full ${
                     subAnswer === true
                       ? "btn-primary"
                       : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
@@ -158,7 +166,7 @@ export default function QuestionCard({
                 <Button
                   variant={subAnswer === false ? "default" : "outline"}
                   onClick={() => onSubAnswer(question.subQuestion!.id, false)}
-                  className={`flex-1 py-3 font-semibold ${
+                  className={`flex-1 py-3 font-semibold rounded-full ${
                     subAnswer === false
                       ? "btn-primary"
                       : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
