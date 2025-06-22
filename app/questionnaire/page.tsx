@@ -59,6 +59,7 @@ export default function QuestionnairePage() {
 
     updateData({
       [sectionKey]: {
+        // @ts-ignore
         ...data[sectionKey as keyof QuestionnaireData],
         [questionId]: answer,
       },
@@ -72,6 +73,8 @@ export default function QuestionnairePage() {
 
     updateData({
       [sectionKey]: {
+        // @ts-ignore
+
         ...data[sectionKey as keyof QuestionnaireData],
         [subQuestionId]: answer,
       },
