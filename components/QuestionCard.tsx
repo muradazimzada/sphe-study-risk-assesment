@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import NavigationButtons from "./NavigationButtons"
 
 interface QuestionCardProps {
   question: Question
@@ -25,6 +26,8 @@ export default function QuestionCard({
   subAnswer,
   onSubAnswer,
 }: QuestionCardProps) {
+  { console.log("loggong answer ", answer) }
+
   const handleYesNoAnswer = (value: boolean) => {
     onAnswer(question.id, value)
   }
@@ -49,35 +52,34 @@ export default function QuestionCard({
     onAnswer(question.id, value)
   }
 
+
   return (
     <Card className="w-full max-w-4xl mx-auto bg-white shadow-lg border-0">
       <CardContent className="p-8 md:p-12">
         <div className="space-y-8">
           {question.text && (
-            <h3 className="font-merriweather text-heading-md text-primary leading-relaxed">{question.text}</h3>
+            <h3 className="question-title">{question.text}</h3>
           )}
 
           {question.type === "yes-no" && (
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Button
-                variant={answer === true ? "default" : "outline"}
+                variant={answer == true ? "default" : "outline"}
                 onClick={() => handleYesNoAnswer(true)}
-                className={`flex-1 py-4 text-lg font-semibold ${
-                  answer === true
-                    ? "btn-primary"
-                    : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
-                }`}
+                className={`flex-1 py-4 text-lg font-semibold ${answer === true
+                  ? "btn-primary"
+                  : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
+                  }`}
               >
                 Yes
               </Button>
               <Button
-                variant={answer === false ? "default" : "outline"}
+                variant={answer == false ? "default" : "outline"}
                 onClick={() => handleYesNoAnswer(false)}
-                className={`flex-1 py-4 text-lg font-semibold ${
-                  answer === false
-                    ? "btn-primary"
-                    : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
-                }`}
+                className={`flex-1 py-4 text-lg font-semibold ${answer === false
+                  ? "btn-primary"
+                  : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
+                  }`}
               >
                 No
               </Button>
@@ -139,38 +141,68 @@ export default function QuestionCard({
               className="min-h-[120px] text-body-md font-bryndan border-2 border-gray-300 focus:border-button focus:ring-button"
             />
           )}
-
           {showSubQuestion && question.subQuestion && onSubAnswer && (
-            <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-              <h4 className="font-merriweather text-lg font-semibold text-primary mb-4">{question.subQuestion.text}</h4>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md">
+            <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-xl mx-auto text-center space-y-6">
+
+              {/* Sub-question Text */}
+              <h4 className="question-title text-lg font-bold text-gray-900">
+                {question.subQuestion.text}
+              </h4>
+
+              {/* Yes/No Buttons */}
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button
-                  variant={subAnswer === true ? "default" : "outline"}
                   onClick={() => onSubAnswer(question.subQuestion!.id, true)}
-                  className={`flex-1 py-3 font-semibold ${
-                    subAnswer === true
-                      ? "btn-primary"
-                      : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
-                  }`}
+                  className={`flex-1 sm:max-w-[140px] py-3 font-semibold ${subAnswer === true
+                    ? "btn-primary"
+                    : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
+                    }`}
                 >
                   Yes
                 </Button>
                 <Button
-                  variant={subAnswer === false ? "default" : "outline"}
                   onClick={() => onSubAnswer(question.subQuestion!.id, false)}
-                  className={`flex-1 py-3 font-semibold ${
-                    subAnswer === false
-                      ? "btn-primary"
-                      : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
-                  }`}
+                  className={`flex-1 sm:max-w-[140px] py-3 font-semibold ${subAnswer === false
+                    ? "btn-primary"
+                    : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
+                    }`}
                 >
                   No
                 </Button>
               </div>
             </div>
           )}
+
+          {/* {showSubQuestion && question.subQuestion && onSubAnswer && (
+            <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+              <h4 className="question-title space-y-3">{question.subQuestion.text}</h4>
+              <div className="flex flex-col sm:flex-row gap-3 max-w-md">
+                <Button
+                  variant={subAnswer === true ? "default" : "outline"}
+                  onClick={() => onSubAnswer(question.subQuestion!.id, true)}
+                  className={`flex-1 py-3 font-semibold ${subAnswer === true
+                    ? "btn-primary"
+                    : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
+                    }`}
+                >
+                  Yes
+                </Button>
+                <Button
+                  variant={subAnswer === false ? "default" : "outline"}
+                  onClick={() => onSubAnswer(question.subQuestion!.id, false)}
+                  className={`flex-1 py-3 font-semibold ${subAnswer === false
+                    ? "btn-primary"
+                    : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
+                    }`}
+                >
+                  No
+                </Button>
+              </div>
+            </div>
+          )} */}
         </div>
       </CardContent>
+
     </Card>
   )
 }
