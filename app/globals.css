@@ -62,7 +62,7 @@
   } 
   */
   .question-title {
-    @apply text-[20px] text-black font-[Arial] leading-relaxed text-center;
+    @apply text-[30px] text-black font-[Arial] leading-relaxed text-center;
   }
 
   .btn-primary {

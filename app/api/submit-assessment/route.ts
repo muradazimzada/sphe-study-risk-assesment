@@ -1,12 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { MongoClient } from "mongodb"
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017"
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://root:rootpassword@localhost:27017"
 const DB_NAME = "bshape"
 const COLLECTION_NAME = "risk_assessment"
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("Received assessment submission request")
     const data = await request.json()
 
     const client = new MongoClient(MONGODB_URI)

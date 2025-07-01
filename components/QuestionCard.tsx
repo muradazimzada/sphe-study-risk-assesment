@@ -151,7 +151,7 @@ export default function QuestionCard({
             <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-xl mx-auto text-center space-y-6">
 
               {/* Sub-question Text */}
-              <h4 className="question-title text-lg font-bold text-gray-900">
+              <h4 className="question-title  font-bold text-gray-900">
                 {question.subQuestion.text}
               </h4>
 

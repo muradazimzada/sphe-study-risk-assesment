@@ -124,6 +124,7 @@ interface NavigationButtonsProps {
   backText?: string
   nextLink?: string
   backLink?: string
+  className?: string
 }
 
 export default function NavigationButtons({
@@ -136,6 +137,7 @@ export default function NavigationButtons({
   backText = "Back",
   nextLink,
   backLink,
+  className
 }: NavigationButtonsProps) {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mt-12 pt-8">
@@ -162,7 +164,7 @@ export default function NavigationButtons({
         nextLink ? (
           <Link href={nextLink} legacyBehavior>
             <a>
-              <Button className="w-full sm:w-auto bg-[#F28132] text-white font-semibold font-montserrat text-base px-8 py-3 rounded-xl hover:brightness-105 transition">
+              <Button className={`w-full sm:w-auto bg-[#F28132] text-white font-semibold font-montserrat text-base px-8 py-3 rounded-xl hover:brightness-105 transition ${className}`}>
                 <span className="mr-2">{nextText}</span> →
               </Button>
             </a>
