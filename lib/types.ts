@@ -14,7 +14,7 @@ export interface QuestionnaireData {
     family?: "some" | "high"
   }
   results: {
-    partner?: "variable" | "moderate" | "high" | "extreme"
+    partner?: "variable" | "increased" | "severe" | "extreme"
     inLaws?: "some" | "high"
     family?: "some" | "high"
   }
