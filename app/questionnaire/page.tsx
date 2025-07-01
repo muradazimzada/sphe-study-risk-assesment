@@ -702,97 +702,6 @@ export default function QuestionnairePage() {
         stepOffset += hasPartner ? partnerQuestions.length : 0
 
 
-        //         // Partner results
-        //         if (hasPartner && data.currentStep === stepOffset) {
-        //           if (!data.results.partner) {
-        //             calculateResults()
-        //             return <div>Calculating results...</div>
-        //           }
-
-        //           const riskLevel = data.results.partner
-        //           const riskImages = {
-        //             variable: "/images/stay-alert.jpg",
-        //             moderate: "/images/be-alert.jpg",
-        //             high: "/images/dont-wait.jpg",
-        //             extreme: "/images/seek-immediately.jpg",
-        //           }
-
-        //           const riskTitles = {
-        //             variable: "Variable Risk",
-        //             moderate: "Moderate Risk",
-        //             high: "High Risk",
-        //             extreme: "Extreme Risk",
-        //           }
-
-        //           const riskSubtitles = {
-        //             variable: "Stay Alert",
-        //             moderate: "Be Alert and Plan for Your Safety",
-        //             high: "Don't Wait, Seek Support",
-        //             extreme: "Seek Support Immediately",
-        //           }
-
-        //           const riskDescriptions = {
-        //             variable: "You may not be in immediate danger, but it's important to stay alert",
-        //             moderate: "Your safety may be at a greater risk",
-        //             high: "You may be in serious danger",
-        //             extreme: "You may be in immediate and extreme danger",
-        //           }
-
-        //           const riskActions = {
-        //             variable: [
-        //               "Know that risks can change quickly, even if things seem calm right now.",
-        //               "Trust your instincts — if something feels off, it probably is.",
-        //               "Stay connected to your support system and keep watching for any warning signs.",
-        //               "Create or review a safety plan and check in regularly with someone you trust.",
-        //             ],
-        //             moderate: [
-        //               "Please pay close attention to any signs that things are escalating.",
-        //               "This is a time to increase your safety planning and be more cautious.",
-        //               "Talk to a trusted advocate or professional.",
-        //               "Keep a record of concerning behavior and have a plan for where to go and who to call if you need help quickly.",
-        //             ],
-        //             high: [
-        //               "We strongly encourage you to work closely with professionals to create a detailed safety plan.",
-        //               "You may need immediate protection. Support from the courts, law enforcement, or other agencies could be critical.",
-        //               "Please don't wait—your safety is urgent.",
-        //             ],
-        //             extreme: [
-        //               "We need to act now to protect you.",
-        //               "This may involve calling emergency services or getting immediate legal or professional help.",
-        //               "The situation is very serious, and your safety is the top priority.",
-        //               "Any support available — including strict legal measures — should be used.",
-        //             ],
-        //           }
-
-        //           return (
-
-        //             <div className="card-container">
-        //               <div className="text-center space-y-6">
-        //                 <div className="space-y-4">
-        //                   <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed ">
-        //                     <b>Thank you for taking the time to complete this questionnaire. By doing so, you're already taking an
-        //                       important step toward caring for your safety and well-being. </b>
-        //                   </p>
-        //                   <p className="text-base text-gray-600 max-w-3xl mx-auto">
-        //                     On the next page, you'll see results based on your responses. These insights are meant to help you
-        //                     better understand your situation and explore your options.
-        //                   </p>
-        //                   <NavigationButtons
-        //                     onBack={data.currentStep > 0 ? handleBack : undefined}
-        //                     onNext={data.currentStep < getTotalSteps() - 1 ? handleNext : undefined}
-        //                     showBack={data.currentStep > 0}
-        //                     showNext={data.currentStep < getTotalSteps() - 1}
-        //                     nextDisabled={!canProceed()}
-        //                   />
-        //                 </div>
-
-
-        //               </div>
-
-        //             </div>
-        //           )
-        //         }
-
         // Partner results
         if (hasPartner && data.currentStep === stepOffset) {
           if (!data.results?.partner) {
@@ -1259,21 +1168,6 @@ export default function QuestionnairePage() {
           }
 
           return (
-            //   <div className="card-container space-y-8">
-            //     <div className="space-y-2 text-center">
-            //       <p className="font-merriweather text-heading-lg text-gray-900 font-bold">Family Risk Assessment:</p>
-            //       <h3 className="font-merriweather text-heading-xl text-primary font-bold">{riskTitles[riskLevel]}</h3>
-            //       <p className="font-montserrat text-body-md text-gray-900 font-bold">{riskDescriptions[riskLevel]}</p>
-            //     </div>
-            //     <NavigationButtons
-            //       onBack={handleBack}
-            //       onNext={handleNext}
-            //       showBack
-            //       showNext
-            //       nextDisabled={!canProceed()}
-            //     />
-            //   </div>
-            // )
             <div className="card-container space-y-8">
               <div className="space-y-2 text-center">
                 <p className="font-merriweather text-heading-lg text-gray-900 font-bold">
@@ -1433,8 +1327,8 @@ export default function QuestionnairePage() {
                   personalized safety plan, click below and the BSHAPE team will guide you through it.
                 </p>
                 <div className="space-y-6 text-center">
-                  <button
-                    onClick={handleSubmit}
+                  {/* <button
+                    // onClick={handleSubmit} // auto sawve by useffect
                     disabled={isSubmitting || hasSubmitted}
                     className={`btn–heartbeat mx-auto bg-[#FFF1C7] text-black font-semibold font-montserrat text-lg px-4 py-2 rounded-3xl border-4 border-[#FE6901] hover:bg-[#FFE7A2] transition whitespace-normal text-center max-w-[16rem] ${isSubmitting || hasSubmitted ? "opacity-50 cursor-not-allowed" : ""
                       }`}
@@ -1444,6 +1338,16 @@ export default function QuestionnairePage() {
                       : hasSubmitted
                         ? "Submitted!"
                         : "Create a Safety Plan that Works for Me"}
+                  </button> */}
+                  <button
+                    // submission happens automatically in the useEffect
+                    // disabled={isSubmitting || hasSubmitted}
+                    className={`btn–heartbeat mx-auto bg-[#FFF1C7] text-black font-semibold font-montserrat text-lg px-4 py-2 rounded-3xl border-4 border-[#FE6901] hover:bg-[#FFE7A2] transition whitespace-normal text-center max-w-[16rem]
+                      }`}
+                  >
+                    {isSubmitting
+                      ? "Submitting..."
+                      : "Create a Safety Plan that Works for Me"}
                   </button>
                   <div className="space-y-1">
                     <p className="text-body-md font-montserrat text-gray-900">You are not alone, we are here for you</p>
