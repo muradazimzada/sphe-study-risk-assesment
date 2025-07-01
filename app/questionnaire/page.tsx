@@ -799,99 +799,8 @@ export default function QuestionnairePage() {
             calculateResults()
             return <div>Calculating results...</div>
           }
-
-          const riskLevel = data.results.partner
-          const riskImages = {
-            variable: "/images/stay-alert.jpg",
-            increased: "/images/be-alert.jpg",
-            severe: "/images/dont-wait.jpg",
-            extreme: "/images/seek-immediately.jpg",
-          }
-
-          const riskTitles = {
-            variable: "Variable Risk",
-            increased: "Increased Risk",
-            severe: "Severe Risk",
-            extreme: "Extreme Risk",
-          }
-
-          const riskDescriptions = {
-            variable: "You may not be in immediate danger, but it's important to stay alert",
-            increased: "Your safety may be at a greater risk",
-            severe: "You may be in serious danger",
-            extreme: "You may be in immediate and extreme danger",
-          }
-
-          const riskActions = {
-            variable: [
-              "Know that risks can change quickly, even if things seem calm right now.",
-              "Trust your instincts — if something feels off, it probably is.",
-              "Stay connected to your support system and keep watching for any warning signs.",
-              "Create or review a safety plan and check in regularly with someone you trust.",
-            ],
-            increased: [
-              "Please pay close attention to any signs that things are escalating.",
-              "This is a time to increase your safety planning and be more cautious.",
-              "Talk to a trusted advocate or professional.",
-              "Keep a record of concerning behavior and have a plan for where to go and who to call if you need help quickly.",
-            ],
-            severe: [
-              "We strongly encourage you to work closely with professionals to create a detailed safety plan.",
-              "You may need immediate protection. Support from the courts, law enforcement, or other agencies could be critical.",
-              "Please don't wait—your safety is urgent.",
-            ],
-            extreme: [
-              "We need to act now to protect you.",
-              "This may involve calling emergency services or getting immediate legal or professional help.",
-              "The situation is very serious, and your safety is the top priority.",
-              "Any support available — including strict legal measures — should be used.",
-            ],
-          }
-
+          // Thank you page
           return (
-            // <div className="card-container space-y-8">
-            //   <div className="space-y-2 text-center">
-            //     <p className="font-merriweather text-heading-lg text-gray-900 font-bold">
-            //       Based on your answers, you scored:
-            //     </p>
-            //     <h3 className="font-merriweather text-heading-xl text-primary font-bold">{riskTitles[riskLevel]}</h3>
-            //     <p className="font-montserrat text-body-md  text-gray-900 font-bold">{riskDescriptions[riskLevel]}</p>
-            //   </div>
-            //   <Card className="max-w-2xl mx-auto">
-            //     <CardContent className="space-y-6 p-8">
-            //       <div className="text-left space-y-4">
-            //         <div>
-            //           <h4 className="font-merriweather text-base font-semibold text-gray-900 mb-3">What you can do:</h4>
-            //           <ul className="space-y-2 list-disc list-inside">
-            //             {riskActions[riskLevel].map((action, i) => (
-            //               <li key={i} className="font-montserrat text-sm text-gray-700">
-            //                 {action}
-            //               </li>
-            //             ))}
-            //           </ul>
-            //         </div>
-            //       </div>
-            //       <div className="relative w-full max-w-sm mx-auto h-32">
-            //         <Image
-            //           src={riskImages[riskLevel] || "/placeholder.svg"}
-            //           alt={`${riskLevel} risk level`}
-            //           fill
-            //           className="object-contain"
-            //         />
-            //       </div>
-            //     </CardContent>
-            //   </Card>
-            //   <NavigationButtons
-            //     onBack={handleBack}
-            //     onNext={handleNext}
-            //     showBack
-            //     showNext
-            //     nextDisabled={!canProceed()}
-            //   />
-            // </div>
-
-
-            //           return (
 
             <div className="card-container">
               <div className="text-center space-y-6">
@@ -1091,6 +1000,38 @@ export default function QuestionnairePage() {
 
         stepOffset += hasInLaws ? inLawsQuestions.length : 0
 
+        // in laws thank you
+        if (hasInLaws && data.currentStep === stepOffset) {
+
+          return (
+            <div className="card-container">
+              <div className="text-center space-y-6">
+                <div className="space-y-4">
+                  <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed ">
+                    <b>Thank you for taking the time to complete this questionnaire. By doing so, you're already taking an
+                      important step toward caring for your safety and well-being. </b>
+                  </p>
+                  <p className="text-base text-gray-600 max-w-3xl mx-auto">
+                    On the next page, you'll see results based on your responses. These insights are meant to help you
+                    better understand your situation and explore your options.
+                  </p>
+                  <NavigationButtons
+                    onBack={data.currentStep > 0 ? handleBack : undefined}
+                    onNext={data.currentStep < getTotalSteps() - 1 ? handleNext : undefined}
+                    showBack={data.currentStep > 0}
+                    showNext={data.currentStep < getTotalSteps() - 1}
+                    nextDisabled={!canProceed()}
+                  />
+                </div>
+
+
+              </div>
+
+            </div>
+          )
+        }
+        stepOffset += hasInLaws ? 1 : 0;
+
         // In-laws results
         if (hasInLaws && data.currentStep === stepOffset) {
           if (!data.results?.inLaws) {
@@ -1146,7 +1087,7 @@ export default function QuestionnairePage() {
             <div className="card-container space-y-8">
               <div className="space-y-2 text-center">
                 <p className="font-merriweather text-heading-lg text-gray-900 font-bold">
-                  Based on your answers, you scored:
+                  Based on your answers, you may be at
                 </p>
                 <h3 className="font-merriweather text-heading-xl text-primary font-bold">{riskTitles[riskLevel]}</h3>
                 <p className="font-montserrat text-body-md  text-gray-900 font-bold">{riskDescriptions[riskLevel]}</p>
@@ -1251,6 +1192,37 @@ export default function QuestionnairePage() {
         }
 
         stepOffset += hasFamily ? familyQuestions.length : 0
+        // in laws thank you
+        if (hasFamily && data.currentStep === stepOffset) {
+
+          return (
+            <div className="card-container">
+              <div className="text-center space-y-6">
+                <div className="space-y-4">
+                  <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed ">
+                    <b>Thank you for taking the time to complete this questionnaire. By doing so, you're already taking an
+                      important step toward caring for your safety and well-being. </b>
+                  </p>
+                  <p className="text-base text-gray-600 max-w-3xl mx-auto">
+                    On the next page, you'll see results based on your responses. These insights are meant to help you
+                    better understand your situation and explore your options.
+                  </p>
+                  <NavigationButtons
+                    onBack={data.currentStep > 0 ? handleBack : undefined}
+                    onNext={data.currentStep < getTotalSteps() - 1 ? handleNext : undefined}
+                    showBack={data.currentStep > 0}
+                    showNext={data.currentStep < getTotalSteps() - 1}
+                    nextDisabled={!canProceed()}
+                  />
+                </div>
+
+
+              </div>
+
+            </div>
+          )
+        }
+        stepOffset += hasInLaws ? 1 : 0;
 
         // Family results
         if (hasFamily && data.currentStep === stepOffset) {
@@ -1264,19 +1236,76 @@ export default function QuestionnairePage() {
             some: "Some Level of Risk",
             high: "High Risk",
           }
-
+          const riskImages = {
+            some: "/images/recognize-abuse.jpg",
+            high: "/images/seek-immediately.jpg",
+          }
           const riskDescriptions = {
-            some: "Based on your responses, you may be experiencing some level of risk from your family members.",
-            high: "Based on your responses, you may be at high risk from your family members.",
+            some: "You may not be in physical danger, but you may be in a harmful situation that could escalate. The situations you indicated may still cause lasting emotional, psychological, or financial harm.",
+            high: "You may be in immediate danger.",
+          }
+          const riskActions = {
+            some: [
+              "Recognize this is abuse.No cultural or family expectation justifies harm or humiliation",
+              "Talk to someone who understands.Seek culturally sensitive counseling or support services.",
+              "Explore your rights.Some countries have laws protecting against dowry harassment and reproductive coercion.",
+            ],
+            high: [
+              "Get help immediately: Contact a domestic violence hotline or shelter",
+              "Make a safety plan: Know where to go and who to call",
+              "Tell someone you trust",
+              "Consider legal protection(like a restraining order or emergency support)",
+            ],
           }
 
           return (
+            //   <div className="card-container space-y-8">
+            //     <div className="space-y-2 text-center">
+            //       <p className="font-merriweather text-heading-lg text-gray-900 font-bold">Family Risk Assessment:</p>
+            //       <h3 className="font-merriweather text-heading-xl text-primary font-bold">{riskTitles[riskLevel]}</h3>
+            //       <p className="font-montserrat text-body-md text-gray-900 font-bold">{riskDescriptions[riskLevel]}</p>
+            //     </div>
+            //     <NavigationButtons
+            //       onBack={handleBack}
+            //       onNext={handleNext}
+            //       showBack
+            //       showNext
+            //       nextDisabled={!canProceed()}
+            //     />
+            //   </div>
+            // )
             <div className="card-container space-y-8">
               <div className="space-y-2 text-center">
-                <p className="font-merriweather text-heading-lg text-gray-900 font-bold">Family Risk Assessment:</p>
+                <p className="font-merriweather text-heading-lg text-gray-900 font-bold">
+                  Based on your answers, you may be at
+                </p>
                 <h3 className="font-merriweather text-heading-xl text-primary font-bold">{riskTitles[riskLevel]}</h3>
-                <p className="font-montserrat text-body-md text-gray-900 font-bold">{riskDescriptions[riskLevel]}</p>
+                <p className="font-montserrat text-body-md  text-gray-900 font-bold">{riskDescriptions[riskLevel]}</p>
               </div>
+              <Card className="max-w-2xl mx-auto">
+                <CardContent className="space-y-6 p-8">
+                  <div className="text-left space-y-4">
+                    <div>
+                      <h4 className="font-merriweather text-lg md:text-xl font-semibold text-gray-900 mb-3">What you can do:</h4>
+                      <ul className="space-y-2 list-disc list-inside">
+                        {riskActions[riskLevel].map((action, i) => (
+                          <li key={i} className="font-montserrat text-sm text-gray-700">
+                            {action}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="relative w-full max-w-sm mx-auto h-32">
+                    <Image
+                      src={riskImages[riskLevel] || "/placeholder.svg"}
+                      alt={`${riskLevel} risk level`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
               <NavigationButtons
                 onBack={handleBack}
                 onNext={handleNext}
@@ -1354,7 +1383,7 @@ export default function QuestionnairePage() {
                     <section className="pt-6 text-center">
                       <div className="mt-4 flex flex-col items-center ">
                         <span className="font-montserrat text-4xl text-primary font-bold capitalize">
-                          {data.results.partner} Risk
+                          {data.results.inLaws} Risk
                         </span>
                         <div className="relative w-48 h-32">
                           <Image
@@ -1370,14 +1399,26 @@ export default function QuestionnairePage() {
                 )}
 
                 {data.results.family && (
-                  <section className="pt-6 pb-6">
-                    <h3 className="font-merriweather text-xl font-semibold text-gray-900 mb-2">
-                      Other Family Members:
-                    </h3>
-                    <p className="font-montserrat text-body-md text-gray-700">
+                  <section className="pt-6">
+                    <h3 className="font-merriweather text-xl font-semibold text-gray-900 mb-2">In-laws:</h3>
+                    <p className="font-montserrat text-body-md text-gray-700 mb-4">
                       Based on your responses, you may be at:{" "}
-                      <strong className="text-2xl text-primary capitalize">{data.results.family} Risk</strong>
                     </p>
+                    <section className="pt-6 text-center">
+                      <div className="mt-4 flex flex-col items-center ">
+                        <span className="font-montserrat text-4xl text-primary font-bold capitalize">
+                          {data.results.family} Risk
+                        </span>
+                        <div className="relative w-48 h-32">
+                          <Image
+                            src={inLawsAndFamilyRiskImages[data.results.family] || "/placeholder.svg"}
+                            alt={`${data.results.inLaws} risk`}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                    </section>
                   </section>
                 )}
               </div>
