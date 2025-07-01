@@ -166,13 +166,14 @@ export function calculatePartnerScore(answers: Record<string, boolean | string>)
     "9",
     "10",
     "11",
-    "14",
-    "11a",
+    // "11a",
     "12",
     "13",
+    "14",
+
     "15",
     "16",
-    "16a",
+    // "16a",
     "17",
     "18",
     "19",
@@ -189,10 +190,12 @@ export function calculatePartnerScore(answers: Record<string, boolean | string>)
   })
 
   // 2 Points for each "Yes" to questions 1, 6 & 14a
-  const twoPointQuestions = ["1", "6", "6a", "14a"]
+  const twoPointQuestions = ["1", "6", "14a"]
   twoPointQuestions.forEach((q) => {
     if (answers[q] === true) score += 2
   })
+  // 2 point substract if 6a is true
+  if (answers["6a"] === true) score -= 2
 
   // 3 Points for each "Yes" to questions 3-5
   const threePointQuestions = ["3", "4", "5"]
@@ -209,10 +212,10 @@ export function calculatePartnerScore(answers: Record<string, boolean | string>)
   return score
 }
 
-export function getPartnerRiskLevel(score: number): "variable" | "moderate" | "high" | "extreme" {
+export function getPartnerRiskLevel(score: number): "variable" | "increased" | "severe" | "extreme" {
   if (score <= 14) return "variable"
-  if (score <= 25) return "moderate"
-  if (score <= 35) return "high"
+  if (score >= 15 && score <= 25) return "increased"
+  if (score <= 35) return "severe"
   return "extreme"
 }
 
@@ -242,20 +245,20 @@ const scoreConfig: Record<string, number> = {
   "4": 3,
   "5": 3,
   "6": 2,
-  "6a": 1,
+  "6a": -2,
   "7": 1,
   "8": 1,
   "9": 1,
   "10": 1,
   "11": 1,
-  "11a": 1,
+  "11a": 0,
   "12": 1,
   "13": 1,
   "14": 1,
   "14a": 2,
   "15": 1,
   "16": 1,
-  "16a": 1,
+  "16a": 0,
   "17": 1,
   "18": 1,
   "19": 1,
