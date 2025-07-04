@@ -21,15 +21,25 @@ export interface QuestionnaireData {
   completedAt?: Date
 }
 
+// export interface Question {
+//   id: string
+//   text: string
+//   type: "yes-no" | "checkbox" | "radio" | "text"
+//   options?: string[]
+//   required?: boolean
+//   subQuestion?: {
+//     id: string
+//     text: string
+//     condition: "yes" | "no" | "yes_no"
+//     type?: "yes-no" | "checkbox" | "radio" | "text"
+//   }
+// }
 export interface Question {
   id: string
   text: string
-  type: "yes-no" | "checkbox" | "radio" | "text"
-  options?: string[]
-  required?: boolean
-  subQuestion?: {
-    id: string
-    text: string
-    condition: string
+  type: 'yes-no' | 'checkbox' | 'radio' | 'text'
+  options?: string[]          // optional, even for checkbox
+  subQuestion?: Question & {  // let a subQuestion be any Question
+    condition: 'yes' | 'no' | 'yes_no'
   }
 }

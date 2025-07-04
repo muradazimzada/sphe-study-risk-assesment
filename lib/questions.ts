@@ -50,7 +50,8 @@ export const partnerQuestions: Question[] = [
     subQuestion: {
       id: "6a",
       text: "If you have never lived with him, check here:",
-      condition: "never_lived",
+      condition: "no",
+      type: "checkbox"
     },
   },
   {
@@ -81,6 +82,7 @@ export const partnerQuestions: Question[] = [
       id: "11a",
       text: "If yes, was the weapon a gun?",
       condition: "yes",
+      type: "yes-no",
     },
   },
   {
@@ -101,6 +103,7 @@ export const partnerQuestions: Question[] = [
       id: "14a",
       text: "If yes, has he done it more than once, or did it make you pass out or black out or make you dizzy?",
       condition: "yes",
+      type: "yes-no",
     },
   },
   {
@@ -115,7 +118,8 @@ export const partnerQuestions: Question[] = [
     subQuestion: {
       id: "16a",
       text: "If you don't have children; check here:",
-      condition: "no_children",
+      condition: "yes_no",
+      type: "checkbox",
     },
   },
   {
@@ -140,7 +144,8 @@ export const partnerQuestions: Question[] = [
     subQuestion: {
       id: "20a",
       text: "If you have never been pregnant by him; check here:",
-      condition: "never_pregnant",
+      condition: "yes_no",
+      type: "checkbox",
     },
   },
   {
@@ -204,6 +209,7 @@ export const inLawsQuestions: Question[] = [
       id: "4a",
       text: "If yes, do other in-laws know about it?",
       condition: "yes",
+      type: "yes-no"
     },
   },
   {
@@ -267,6 +273,7 @@ export const familyQuestions: Question[] = [
       id: "4a",
       text: "If yes, do other family members know about it?",
       condition: "yes",
+      type: "yes-no"
     },
   },
   {

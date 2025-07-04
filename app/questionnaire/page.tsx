@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import type { QuestionnaireData } from "@/lib/types"
+import type { Question, QuestionnaireData } from "@/lib/types"
 import {
   relationshipConcernOptions,
   livingWithOptions,
@@ -673,6 +673,7 @@ export default function QuestionnairePage() {
           const answer = data.partnerQuestions[question.id]
           const subAnswer = question.subQuestion ? data.partnerQuestions[question.subQuestion.id] : undefined
 
+
           return (
             <div className="card-container">
               <div className="text-center">
@@ -683,7 +684,7 @@ export default function QuestionnairePage() {
                   question={question}
                   answer={answer}
                   onAnswer={handleAnswer}
-                  showSubQuestion={question.subQuestion && answer === true}
+                  // showSubQuestion={shouldShowSubQuestion(question, answer)}
                   subAnswer={subAnswer}
                   onSubAnswer={handleSubAnswer}
                 />
@@ -1294,7 +1295,7 @@ export default function QuestionnairePage() {
 
                 {data.results.family && (
                   <section className="pt-6">
-                    <h3 className="font-merriweather text-xl font-semibold text-gray-900 mb-2">In-laws:</h3>
+                    <h3 className="font-merriweather text-xl font-semibold text-gray-900 mb-2">Other Family Members:</h3>
                     <p className="font-montserrat text-body-md text-gray-700 mb-4">
                       Based on your responses, you may be at:{" "}
                     </p>

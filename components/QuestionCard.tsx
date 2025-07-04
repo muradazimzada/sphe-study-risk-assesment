@@ -13,24 +13,40 @@ interface QuestionCardProps {
   question: Question
   answer: boolean | string | string[] | undefined
   onAnswer: (questionId: string, answer: boolean | string | string[]) => void
-  showSubQuestion?: boolean
   subAnswer?: boolean | string
   onSubAnswer?: (subQuestionId: string, answer: boolean | string) => void
 }
-
+// how should we pass it to props?
+export type ShowSubQuestion = (question: Question, answer: boolean | string | string[] | undefined) => boolean
+const shouldShowSubQuestion = (
+  question: Question,
+  answer: boolean | string | string[] | undefined,
+) => {
+  if (!question.subQuestion) return false
+  if (question.subQuestion.condition === "yes") {
+    return answer === true
+  } else if (question.subQuestion.condition === "no") {
+    return answer === false
+  } else if (question.subQuestion.condition === "yes_no") {
+    return true // always show if condition is yes_no
+  }
+  return false
+}
 export default function QuestionCard({
   question,
   answer,
   onAnswer,
-  showSubQuestion,
   subAnswer,
   onSubAnswer,
 }: QuestionCardProps) {
-  { console.log("loggong answer ", answer) }
+  { console.log("logging answer ", answer) }
 
   const handleYesNoAnswer = (value: boolean) => {
     onAnswer(question.id, value)
   }
+
+  const showSub = shouldShowSubQuestion(question, answer)
+
 
   const handleCheckboxAnswer = (option: string, checked: boolean) => {
     const currentAnswers = Array.isArray(answer) ? answer : []
@@ -51,6 +67,24 @@ export default function QuestionCard({
   const handleTextAnswer = (value: string) => {
     onAnswer(question.id, value)
   }
+  // helper – treat one-box checkbox as boolean
+  const renderSingleCheckbox = () => (
+    <div className="flex items-center justify-center gap-3">
+      <Checkbox
+        id={question.id}
+        checked={!!answer}
+        onCheckedChange={(checked) =>
+          onAnswer(question.id, checked as boolean)
+        }
+        className="data-[state=checked]:bg-button
+                 data-[state=checked]:border-button
+                 rounded-md"
+      />
+      <Label htmlFor={question.id} className="text-base font-montserrat">
+        {question.text}
+      </Label>
+    </div>
+  )
 
 
   return (
@@ -110,6 +144,7 @@ export default function QuestionCard({
             </div>
           )}
 
+
           {question.type === "radio" && question.options && (
             <RadioGroup
               value={answer as string}
@@ -147,15 +182,14 @@ export default function QuestionCard({
               />
             </div>
           )}
-          {showSubQuestion && question.subQuestion && onSubAnswer && (
+
+          { /* {showSubQuestion && question.subQuestion && onSubAnswer && (
             <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-xl mx-auto text-center space-y-6">
 
-              {/* Sub-question Text */}
               <h4 className="question-title  font-bold text-gray-900">
                 {question.subQuestion.text}
               </h4>
 
-              {/* Yes/No Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button
                   onClick={() => onSubAnswer(question.subQuestion!.id, true)}
@@ -177,7 +211,62 @@ export default function QuestionCard({
                 </Button>
               </div>
             </div>
+          ) */ }
+
+          {showSub && question.subQuestion && onSubAnswer && (
+            question.subQuestion.type === "checkbox" ? (
+              <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-xl mx-auto text-center">
+                <div className="flex items-center justify-center gap-3">
+                  <Checkbox
+                    id={question.subQuestion.id}
+                    checked={!!subAnswer}
+                    onCheckedChange={(checked) =>
+                      // @ts-ignore
+
+                      onSubAnswer(question.subQuestion.id, checked as boolean)
+                    }
+                    className="data-[state=checked]:bg-button data-[state=checked]:border-button rounded-md"
+                  />
+                  <Label
+                    htmlFor={question.subQuestion.id}
+                    className="text-base font-montserrat cursor-pointer"
+                  >
+                    {question.subQuestion.text}
+                  </Label>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-xl mx-auto text-center space-y-6">
+                <h4 className="question-title font-bold text-gray-900">
+                  {question.subQuestion.text}
+                </h4>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <Button
+                    // @ts-ignore
+                    onClick={() => onSubAnswer(question.subQuestion.id, true)}
+                    className={`flex-1 sm:max-w-[140px] py-3 font-semibold ${subAnswer === true
+                      ? "btn-primary"
+                      : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
+                      }`}
+                  >
+                    Yes
+                  </Button>
+                  <Button
+                    // @ts-ignore
+                    onClick={() => onSubAnswer(question.subQuestion.id, false)}
+                    className={`flex-1 sm:max-w-[140px] py-3 font-semibold ${subAnswer === false
+                      ? "btn-primary"
+                      : "bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50"
+                      }`}
+                  >
+                    No
+                  </Button>
+                </div>
+              </div>
+            )
           )}
+
+
 
           {/* {showSubQuestion && question.subQuestion && onSubAnswer && (
             <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
