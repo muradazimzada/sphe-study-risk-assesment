@@ -892,7 +892,7 @@ export default function QuestionnairePage() {
                   question={question}
                   answer={answer}
                   onAnswer={handleAnswer}
-                  showSubQuestion={question.subQuestion && answer === true}
+                  // showSubQuestion={question.subQuestion && answer === true}
                   subAnswer={subAnswer}
                   onSubAnswer={handleSubAnswer}
                 />
@@ -1085,7 +1085,7 @@ export default function QuestionnairePage() {
                   question={question}
                   answer={answer}
                   onAnswer={handleAnswer}
-                  showSubQuestion={question.subQuestion && answer === true}
+                  // showSubQuestion={question.subQuestion && answer === true}
                   subAnswer={subAnswer}
                   onSubAnswer={handleSubAnswer}
                 />
